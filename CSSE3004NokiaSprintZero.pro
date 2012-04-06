@@ -33,7 +33,8 @@ CONFIG += qdeclarative-boostable
 SOURCES += main.cpp \
     filedata.cpp \
     tag.cpp \
-    testingsomethingclass.cpp
+    testingsomethingclass.cpp \
+    test3.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -51,4 +52,5 @@ OTHER_FILES += \
 HEADERS += \
     filedata.h \
     tag.h \
-    testingsomethingclass.h
+    testingsomethingclass.h \
+    test3.h
