@@ -8,6 +8,7 @@ public:
     void meow();
     void dog();
     void catdog();
+    void shit();
 
 };
 
