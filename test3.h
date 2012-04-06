@@ -5,6 +5,7 @@ class test3
 {
 public:
     test3();
+    void dog();
 };
 
 #endif // TEST3_H
