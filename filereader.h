@@ -1,10 +1,20 @@
 #ifndef FILEREADER_H
 #define FILEREADER_H
 
+#include <map>
+#include <string>
+
+using namespace std;
+
 class FileReader
 {
+private:
+    multimap<string , FILE*> tagsToBeCreated;
 public:
-    FileReader();
+    FileReader(string s);
+    void read_file();
+    multimap<string , FILE*> get_multimap();
+
 };
 
 #endif // FILEREADER_H
