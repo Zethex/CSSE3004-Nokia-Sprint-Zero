@@ -7,6 +7,8 @@
 
 using namespace std;
 
+class Data;
+
 class Tag
 {
 private:
