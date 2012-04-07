@@ -3,6 +3,10 @@
 
 #include "tag.h"
 #include "xmlmanager.h"
+#include <map>
+#include "filereader.h"
+#include "data.h"
+#include "tag.h"
 
 class TagFactory
 {
@@ -14,7 +18,7 @@ public:
 private:
     Tag * tag_array;
     XMLManager * xml;
-    // HAVE TO GET right map thing hereint process_tags(Map * dict);
+    int process_tags(multimap<string , FILE*> * dict);
 };
 
 #endif // TAGFACTORY_H
