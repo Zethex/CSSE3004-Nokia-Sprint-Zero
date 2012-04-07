@@ -1,6 +1,6 @@
 #include "filereader.h"
 
-FileReader::FileReader(string s)
+FileReader::FileReader(string filepath)
 {
     //s is the filepath which will analyze every mp3 in folder
 }
