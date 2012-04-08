@@ -15,12 +15,11 @@ Tag * TagFactory::get_tag_array() {
   **/
 TagFactory TagFactory::get_instance() {
 
-    TagFactory tf = new TagFactory();
-    FileReader fr = new FileReader("what do we put here");
-    fr.read_file();
+    TagFactory *tf = new TagFactory();
+    //FileReader *fr = new FileReader("what do we put here");
 
 
 
 
-    return tf;
+    return *tf;
 }

@@ -25,6 +25,7 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable
+CONFIG += qtestlib
 
 # Add dependency to Symbian components
 # CONFIG += qt-components
@@ -57,3 +58,5 @@ HEADERS += \
     filereader.h \
     tagfactory.h \
     xmlmanager.h
+
+
