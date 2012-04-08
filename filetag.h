@@ -1,5 +1,5 @@
-#ifndef TAG_H
-#define TAG_H
+#ifndef FileTag_H
+#define FileTag_H
 
 #include <string>
 #include <data.h>
@@ -9,20 +9,20 @@ using namespace std;
 
 class Data;
 
-class Tag
+class FileTag
 {
 private:
     string name;
     vector<Data> files;
 public:
-    Tag(string name, vector<Data> d);
+    FileTag(string name, vector<Data> d);
     void add_file(Data d);
     int remove_file(Data d);
-    vector<Tag> get_related_tags();
+    vector<FileTag> get_related_FileTags();
     string get_name();
     void set_name(string s);
     vector<Data> get_files();
     void set_files(vector<Data> d);
 };
 
-#endif // TAG_H
+#endif // FileTag_H

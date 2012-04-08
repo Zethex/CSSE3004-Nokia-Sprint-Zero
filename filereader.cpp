@@ -8,7 +8,10 @@
 
 
 
+
 using namespace std;
+
+
 
 FileReader::FileReader(string filepath)
 {
@@ -46,24 +49,25 @@ void FileReader::read_file(string filepath)
     id3tag ID3;
     if(ReadID3(filepath.c_str(),&ID3)){
         cout<<endl;
-        cout<<ID3.comment<<endl;
-        cout<<ID3.album<<endl;
         cout<<ID3.artist<<endl;
-        cout<<ID3.title<<endl;
-        cout<<ID3.track<<endl;
-        cout<<ID3.year<<endl;
+        string artist = ID3.artist;
+        int genre = ID3.genre;
+        cout<<genre<<endl;
+
+        if(artist.length()>2){
+            this->tagsToBeCreated.insert(pair<string,string>(artist , filepath));
+        }
+        if(genre){
+            string temp = genreTosString(genre);
+            this->tagsToBeCreated.insert(pair<string,string>(temp , filepath));
+        }
     } else{
         cout<<" doesnt have ID3v1(end of file tagging) tag"<<endl;
-        if(!ReadID3v2(filepath.c_str(),&ID3)){
-            cout<<" doesnt have ID3v2(start of file tagging) tag"<<endl;
-        } else{
-            cout<<" no current implementation of id3v2 tags"<<endl;
-        }
     }
 
 
 }
-multimap<string , FILE*> FileReader::get_multimap()
+multimap<string , string> FileReader::get_multimap()
 {
     return this->tagsToBeCreated;
 }
@@ -121,12 +125,39 @@ int FileReader::ReadID3(const char* Filename, id3tag *ID3Tag)
 int FileReader::ReadID3v2(const char* Filename, id3tag *ID3Tag)
 {
     FILE *fp=fopen(Filename,"rb");
-    char buffer[128];
+    char buffer[1000];
 
-    fseek(fp,10,SEEK_SET);
+    fseek(fp,100,SEEK_SET);
     fread(buffer,sizeof(char),sizeof(buffer),fp);
-
+    for( int i=0; i<100;i++){
+        cout<<buffer[i];
+    }
+    cout<<endl;
     if((buffer[0]=='I' && buffer[1] == 'D' && buffer[2] == '3'))
         return 1;
     return 0;
+}
+string genreTosString(int genre){
+    if(genre<=10){
+        return "first 10 genres";
+    } else if(genre<=20 &&genre>10){
+        return "second 10 genres";
+    } else if(genre<=30 &&genre>20){
+        return "third 10 genres";
+    } else if(genre<=40 &&genre>30){
+        return "forth 10 genres";
+    } else if(genre<=50 &&genre>40){
+        return "fifth 10 genres";
+    } else if(genre<=60 &&genre>50){
+        return "sixth 10 genres";
+    } else if(genre<=70 &&genre>60){
+        return "seventh 10 genres";
+    } else if(genre<=80 &&genre>70){
+        return "eighth 10 genres";
+    } else if(genre<=90 &&genre>80){
+        return "ninth 10 genres";
+    } else if(genre<=100 &&genre>90){
+        return "tenth 10 genres";
+    }
+
 }

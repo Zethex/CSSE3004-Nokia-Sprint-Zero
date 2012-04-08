@@ -1,6 +1,6 @@
 #include "data.h"
 
-Data::Data(FILE *file, vector<Tag> tags)
+Data::Data(FILE *file, vector<FileTag> tags)
 {
     this->file = file;
     this->tags = tags;
@@ -13,7 +13,7 @@ void Data::set_file(FILE* f)
 {
     this->file = f;
 }
-vector<Tag> Data::get_tags()
+vector<FileTag> Data::get_tags()
 {
     return this->tags;
 }

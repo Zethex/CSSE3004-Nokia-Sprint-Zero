@@ -1,11 +1,11 @@
 #include "tagfactory.h"
 
 
-void TagFactory::set_tag_array(Tag * tag_array) {
+void TagFactory::set_tag_array(FileTag * tag_array) {
     this->tag_array = tag_array;
 }
 
-Tag * TagFactory::get_tag_array() {
+FileTag * TagFactory::get_tag_array() {
     return this->tag_array;
 }
 

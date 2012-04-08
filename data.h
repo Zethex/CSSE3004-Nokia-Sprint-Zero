@@ -4,20 +4,20 @@
 using namespace std;
 #include <string>
 #include <vector>
-#include <tag.h>
+#include <filetag.h>
 
-class Tag;
+class FileTag;
 
 class Data
 {
 private:
     FILE *file;
-    vector<Tag> tags;
+    vector<FileTag> tags;
 public:
-    Data(FILE *file, vector<Tag> tags);
+    Data(FILE *file, vector<FileTag> tags);
     FILE* get_file();
     void set_file(FILE* f);
-    vector<Tag> get_tags();
+    vector<FileTag> get_tags();
 };
 
 #endif // DATA_H
