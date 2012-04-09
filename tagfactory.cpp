@@ -25,14 +25,17 @@ multimap<string, string> TagFactory::get_fileTagData() {
   singleton method
   Returns a tag factory by acting as its own constructor so there is only one copy
   **/
-TagFactory* TagFactory::get_instance() {
+ TagFactory* TagFactory::get_instance(string filepath) {
     if (factory_singleton == NULL){
-        factory_singleton = new TagFactory();
+        factory_singleton = new TagFactory(filepath);
     }
     return factory_singleton;
 
 }
-TagFactory::TagFactory() {}
+TagFactory::TagFactory(string filepath) {
+    FileReader temp = FileReader(filepath);
+    cout<<"added "<<this->process_tags(&temp.get_multimap())<<" tags"<<endl;
+}
 
 
 /**

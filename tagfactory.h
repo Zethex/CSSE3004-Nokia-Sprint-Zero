@@ -5,13 +5,16 @@
 #include <map>
 #include "filereader.h"
 #include "data.h"
+#include <iostream>
+
+using namespace std;
 
 class TagFactory
 {
 
 public:
 
-    TagFactory* get_instance();
+    static TagFactory* get_instance(string filepath);
 
     vector<FileTag> get_tag_array();
     void set_tag_array(vector<FileTag> tag_array);
@@ -22,7 +25,7 @@ public:
 
     int process_tags(multimap<string , string> * dict);
 private:
-    TagFactory();
+    TagFactory(string filepath);
     static TagFactory * factory_singleton;
 
     vector<FileTag> tag_array;
