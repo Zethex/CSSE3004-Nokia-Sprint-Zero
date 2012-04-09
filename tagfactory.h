@@ -18,7 +18,7 @@ public:
     Tag * get_tag_array();
     void set_tag_array(Tag * tag_array);
     void print();
-    void set_fileTagData(multimap<String, String> ftd);
+    void set_fileTagData(multimap<string, string> ftd);
     multimap<String, String> get_fileTagData();
 private:
     FileTag * tag_array;
@@ -26,7 +26,7 @@ private:
     Tag * tag_array;
     XMLManager * xml;
     int process_tags(multimap<string , FILE*> * dict);
-    multimap<String, String> fileTagData;
+    multimap<string, string> fileTagData;
 };
 
 #endif // TAGFACTORY_H

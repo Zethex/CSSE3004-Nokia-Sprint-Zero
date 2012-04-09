@@ -9,7 +9,7 @@ FileTag * TagFactory::get_tag_array() {
     return this->tag_array;
 }
 
-void TagFactory::set_fileTagData(multimap<String, String> ftd) {
+void TagFactory::set_fileTagData(multimap<string, string> ftd) {
     this->fileTagData = ftd;
 }
 
@@ -20,7 +20,7 @@ multimap<String, String> TagFactory::get_fileTagData() {
 /**
   Returns a tag factory by acting as its own constructor so there is only one copy
   **/
-TagFactory TagFactory::get_instance(String filepath) {
+TagFactory TagFactory::get_instance(string filepath) {
     TagFactory *tf = new TagFactory();
     FileReader *fr = new FileReader(filepath);
     fr->read_file();
