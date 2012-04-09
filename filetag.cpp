@@ -12,7 +12,7 @@ void FileTag::add_file(Data d)
 int FileTag::remove_file(Data d)
 {
     for (unsigned int iPos = 0 ; iPos < this->files.size() ; iPos++) {
-        if(this->files.at(iPos).get_file()==d.get_file()) {
+        if(this->files.at(iPos).get_filepath()==d.get_filepath()) {
             this->files.erase(this->files.begin() + iPos);
             return 1;
         }

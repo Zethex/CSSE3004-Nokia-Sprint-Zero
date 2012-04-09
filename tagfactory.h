@@ -15,15 +15,19 @@ public:
 
     vector<FileTag> get_tag_array();
     void set_tag_array(vector<FileTag> tag_array);
-    void print();
     void set_fileTagData(multimap<string, string> ftd);
     multimap<string, string> get_fileTagData();
+
+    void print();
+
+    int process_tags(multimap<string , string> * dict);
 private:
     TagFactory();
     static TagFactory * factory_singleton;
 
     vector<FileTag> tag_array;
-    int process_tags(multimap<string , string> * dict);
+    void create_tag(string name);
+
     multimap<string, string> fileTagData;
 };
 

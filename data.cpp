@@ -1,17 +1,17 @@
 #include "data.h"
 
-Data::Data(FILE *file, vector<FileTag> tags)
+Data::Data(string filepath, vector<FileTag> tags)
 {
-    this->file = file;
+    this->filepath = filepath;
     this->tags = tags;
 }
-FILE* Data::get_file()
+string Data::get_filepath()
 {
-    return this->file;
+    return this->filepath;
 }
-void Data::set_file(FILE* f)
+void Data::set_file(string filepath)
 {
-    this->file = f;
+    this->filepath = filepath;
 }
 vector<FileTag> Data::get_tags()
 {

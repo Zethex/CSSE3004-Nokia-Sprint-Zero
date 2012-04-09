@@ -11,12 +11,12 @@ class FileTag;
 class Data
 {
 private:
-    FILE *file;
+    string filepath;
     vector<FileTag> tags;
 public:
-    Data(FILE *file, vector<FileTag> tags);
-    FILE* get_file();
-    void set_file(FILE* f);
+    Data(string filepath, vector<FileTag> tags);
+    string get_filepath();
+    void set_file(string filepath);
     vector<FileTag> get_tags();
 };
 
