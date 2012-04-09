@@ -8,17 +8,21 @@
 
 class TagFactory
 {
+
 public:
 
-    TagFactory get_instance();
-    FileTag * get_tag_array();
-    void set_tag_array(FileTag * tag_array);
-    TagFactory get_instance(string filepath);
+    TagFactory* get_instance();
+
+    vector<FileTag> get_tag_array();
+    void set_tag_array(vector<FileTag> tag_array);
     void print();
     void set_fileTagData(multimap<string, string> ftd);
     multimap<string, string> get_fileTagData();
 private:
-    FileTag * tag_array;
+    TagFactory();
+    static TagFactory * factory_singleton;
+
+    vector<FileTag> tag_array;
     int process_tags(multimap<string , string> * dict);
     multimap<string, string> fileTagData;
 };

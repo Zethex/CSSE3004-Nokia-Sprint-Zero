@@ -3,8 +3,11 @@
 #include "filereader.h"
 #include <iostream>
 #include <map>
+#include "tagfactory.h"
 
 using namespace std;
+
+TagFactory * TagFactory::factory_singleton;
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
