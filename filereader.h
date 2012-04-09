@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -23,13 +24,12 @@ string genreTosString(int genre);
 class FileReader
 {
 private:
-    multimap<string , string> tagsToBeCreated;
+    std::map<string, std::vector<string> > tagsToBeCreated;
 public:
     FileReader(string filepath);
     void read_file(string filepath);
-    multimap<string , string> get_multimap();
+    map<string, std::vector<string> > get_multimap();
     int ReadID3(const char* Filename, id3tag *ID3Tag);
-    int ReadID3v2(const char* Filename, id3tag *ID3Tag);
 
 };
 

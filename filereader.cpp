@@ -45,21 +45,33 @@ void FileReader::read_file(string filepath)
             i++;
         }
     }
-    cout<<filepath;
     id3tag ID3;
     if(ReadID3(filepath.c_str(),&ID3)){
-        cout<<endl;
-        cout<<ID3.artist<<endl;
         string artist = ID3.artist;
         int genre = ID3.genre;
-        cout<<genre<<endl;
 
         if(artist.length()>2){
-            this->tagsToBeCreated.insert(pair<string,string>(artist , filepath));
+            if(this->tagsToBeCreated.find(artist)==this->tagsToBeCreated.end()){
+                //no tag yet
+                vector<string> temp = *new vector<string>();
+                temp.push_back(filepath);
+                this->tagsToBeCreated[artist] = temp;
+            } else {
+                //tag found add to tags vector
+                this->tagsToBeCreated[artist].push_back(filepath);
+            }
         }
         if(genre){
-            string temp = genreTosString(genre);
-            this->tagsToBeCreated.insert(pair<string,string>(temp , filepath));
+            string genre_string = genreTosString( genre);
+            if(this->tagsToBeCreated.find(genre_string)==this->tagsToBeCreated.end()){
+                //no tag yet
+                vector<string> temp = *new vector<string>();
+                temp.push_back(filepath);
+                this->tagsToBeCreated[genre_string] = temp;
+            } else {
+                //tag found add to tags vector
+                this->tagsToBeCreated[genre_string].push_back(filepath);
+            }
         }
     } else{
         cout<<" doesnt have ID3v1(end of file tagging) tag"<<endl;
@@ -67,7 +79,7 @@ void FileReader::read_file(string filepath)
 
 
 }
-multimap<string , string> FileReader::get_multimap()
+map<string, std::vector<string> > FileReader::get_multimap()
 {
     return this->tagsToBeCreated;
 }
@@ -122,21 +134,6 @@ int FileReader::ReadID3(const char* Filename, id3tag *ID3Tag)
     return 1;
 }
 
-int FileReader::ReadID3v2(const char* Filename, id3tag *ID3Tag)
-{
-    FILE *fp=fopen(Filename,"rb");
-    char buffer[1000];
-
-    fseek(fp,100,SEEK_SET);
-    fread(buffer,sizeof(char),sizeof(buffer),fp);
-    for( int i=0; i<100;i++){
-        cout<<buffer[i];
-    }
-    cout<<endl;
-    if((buffer[0]=='I' && buffer[1] == 'D' && buffer[2] == '3'))
-        return 1;
-    return 0;
-}
 string genreTosString(int genre){
     if(genre<=10){
         return "first 10 genres";

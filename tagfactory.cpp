@@ -12,12 +12,15 @@ void TagFactory::set_tag_array(vector<FileTag> tag_array) {
 vector<FileTag> TagFactory::get_tag_array() {
     return this->tag_array;
 }
+vector<Data> TagFactory::get_data_array() {
+    return this->data_array;
+}
 
-void TagFactory::set_fileTagData(multimap<string, string> ftd) {
+void TagFactory::set_fileTagData(map<string, std::vector<string> > ftd) {
     this->fileTagData = ftd;
 }
 
-multimap<string, string> TagFactory::get_fileTagData() {
+map<string, std::vector<string> > TagFactory::get_fileTagData() {
     return this->fileTagData;
 }
 
@@ -44,14 +47,33 @@ TagFactory::TagFactory(string filepath) {
 
 
 //returns the amount of tags added
-int TagFactory::process_tags(multimap<string , string> * dict){
+int TagFactory::process_tags(map<string, std::vector<string> > * dict){
 
     int tag_count =0;
-    multimap<string,string>::iterator it;
+    map<string, std::vector<string> >::iterator it;
 
     for(it = dict->begin(); it!= dict->end(); it++){
         //iterate through keys
         //create a tag per key
+        tag_count+=1;
+        create_tag(it->first);
+        string tag_name = it->first;
+        for(int i=0; i<(*dict)[it->first].size(); i++){
+            Data* temp_data = get_data_from_string((*dict)[it->first].at(i));
+            FileTag* temp_tag = get_FileTag_from_string(tag_name);
+            if(temp_data!=NULL){
+                //if data already exists add tag to data
+                FileTag t = this->tag_array.back();
+                temp_data->add_tag(t);
+                temp_tag->add_file(*temp_data);
+
+            } else {
+                //if data does not exist
+                create_data((*dict)[it->first].at(i));
+                temp_tag->add_file(this->data_array.back());
+            }
+
+        }
             //iterate through each data in key
             //create data for each filepath
     }
@@ -59,11 +81,29 @@ int TagFactory::process_tags(multimap<string , string> * dict){
     return tag_count;
 }
 
+
+Data * TagFactory::get_data_from_string(string filepath){
+    for(int i=0 ; i< this->data_array.size(); i++){
+        if(this->data_array.at(i).get_filepath()==filepath){
+            return &this->data_array.at(i);
+        }
+    }
+    return NULL;
+}
+FileTag * TagFactory::get_FileTag_from_string(string name){
+    for(int i=0 ; i< this->tag_array.size(); i++){
+        if(this->tag_array.at(i).get_name()==name){
+            return &this->tag_array.at(i);
+        }
+    }
+    return NULL;
+}
+
 void TagFactory::create_tag(string name){
     //creates a new tag in the taglist and in memory with an empty data array
     this->tag_array.push_back(FileTag(name, *new vector<Data>()));
 }
 
-void TagFactory::create_data(string filepath, vector<FileTag> tags){
-    this->data_array.push_back(Data(filepath, tags));
+void TagFactory::create_data(string filepath){
+    this->data_array.push_back(Data(filepath, *new vector<FileTag>));
 }

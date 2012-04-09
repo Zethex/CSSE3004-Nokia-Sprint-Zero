@@ -4,6 +4,7 @@
 #include <string>
 #include <data.h>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
     FileTag(string name, vector<Data> d);
     void add_file(Data d);
     int remove_file(Data d);
-    vector<FileTag> get_related_FileTags();
+    vector<FileTag> * get_related_FileTags();
     string get_name();
     void set_name(string s);
     vector<Data> get_files();
