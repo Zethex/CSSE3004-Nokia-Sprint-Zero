@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-Renderer::Renderer(QObject *parent)
+Renderer::Renderer(QWidget *parent)
 {
 }
 
