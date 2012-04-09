@@ -23,6 +23,9 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # CONFIG += mobility
 # MOBILITY +=
 
+# Include OpenGL
+QT += opengl
+
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable
 CONFIG += qtestlib
@@ -35,7 +38,8 @@ SOURCES += main.cpp \
     data.cpp \
     filereader.cpp \
     tagfactory.cpp \
-    filetag.cpp
+    filetag.cpp \
+    renderer.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -55,4 +59,5 @@ HEADERS += \
     data.h \
     filereader.h \
     tagfactory.h \
-    filetag.h
+    filetag.h \
+    renderer.h
