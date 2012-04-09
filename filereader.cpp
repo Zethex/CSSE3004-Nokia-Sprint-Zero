@@ -25,8 +25,8 @@ FileReader::FileReader(string filepath)
         while (ep = readdir (dp)){
             int len = strlen(ep->d_name);
             if(strcmp(".mp3", ep->d_name+len -4)==0){
-
                 read_file(filepath+"\\"+ep->d_name);
+
             }
         }
         (void) closedir (dp);
@@ -158,6 +158,8 @@ string genreTosString(int genre){
         return "ninth 10 genres";
     } else if(genre<=100 &&genre>90){
         return "tenth 10 genres";
+    } else {
+        return "more then tenth genre";
     }
 
 }

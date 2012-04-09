@@ -26,7 +26,9 @@ private:
     static TagFactory * factory_singleton;
 
     vector<FileTag> tag_array;
+    vector<Data> data_array;
     void create_tag(string name);
+    void create_data(string filepath, vector<FileTag> tags);
 
     multimap<string, string> fileTagData;
 };

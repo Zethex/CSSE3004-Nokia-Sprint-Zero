@@ -53,7 +53,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
-    music/01 No Problem.mp3
+    music/01 No Problem.mp3 \
+    music/song4.mp3
 
 HEADERS += \
     data.h \

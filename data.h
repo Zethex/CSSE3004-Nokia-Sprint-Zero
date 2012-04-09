@@ -17,6 +17,7 @@ public:
     Data(string filepath, vector<FileTag> tags);
     string get_filepath();
     void set_file(string filepath);
+    void add_tag(FileTag f);
     vector<FileTag> get_tags();
 };
 

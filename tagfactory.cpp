@@ -58,7 +58,9 @@ int TagFactory::process_tags(multimap<string , string> * dict){
 
 void TagFactory::create_tag(string name){
     //creates a new tag in the taglist and in memory with an empty data array
-    vector<Data>* empty = new vector<Data>();
-    FileTag* temp = new FileTag(name, *empty);
-    this->tag_array.push_back(*temp);
+    this->tag_array.push_back(FileTag(name, *new vector<Data>()));
+}
+
+void TagFactory::create_data(string filepath, vector<FileTag> tags){
+    this->data_array.push_back(Data(filepath, tags));
 }
