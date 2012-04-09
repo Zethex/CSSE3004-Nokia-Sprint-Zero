@@ -5,7 +5,6 @@
 #include <map>
 #include "filereader.h"
 #include "data.h"
-#include "filetag.h"
 
 class TagFactory
 {
@@ -15,17 +14,12 @@ public:
     FileTag * get_tag_array();
     void set_tag_array(FileTag * tag_array);
     TagFactory get_instance(string filepath);
-    Tag * get_tag_array();
-    void set_tag_array(Tag * tag_array);
     void print();
     void set_fileTagData(multimap<string, string> ftd);
-    multimap<String, String> get_fileTagData();
+    multimap<string, string> get_fileTagData();
 private:
     FileTag * tag_array;
     int process_tags(multimap<string , string> * dict);
-    Tag * tag_array;
-    XMLManager * xml;
-    int process_tags(multimap<string , FILE*> * dict);
     multimap<string, string> fileTagData;
 };
 

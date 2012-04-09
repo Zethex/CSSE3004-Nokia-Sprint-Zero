@@ -13,7 +13,7 @@ void TagFactory::set_fileTagData(multimap<string, string> ftd) {
     this->fileTagData = ftd;
 }
 
-multimap<String, String> TagFactory::get_fileTagData() {
+multimap<string, string> TagFactory::get_fileTagData() {
     return this->fileTagData;
 }
 
@@ -23,7 +23,7 @@ multimap<String, String> TagFactory::get_fileTagData() {
 TagFactory TagFactory::get_instance(string filepath) {
     TagFactory *tf = new TagFactory();
     FileReader *fr = new FileReader(filepath);
-    fr->read_file();
-    this->set_fileTagData(fr->get_multimap());
+    //fr->read_file();
+    //this->set_fileTagData(fr->get_multimap());
     return *tf;
 }
