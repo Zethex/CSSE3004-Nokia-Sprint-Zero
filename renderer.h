@@ -11,7 +11,7 @@ class Renderer : public QGLWidget
 
 
 public:
-    explicit Renderer(QObject *parent = 0);
+    Renderer(QWidget *parent);
 
     void initializeGL();
     void resizeGL(int w, int h);
