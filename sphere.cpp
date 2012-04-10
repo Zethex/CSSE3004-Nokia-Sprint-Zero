@@ -2,6 +2,7 @@
 #include <GL/GLU.h>
 #include <stdio.h>
 
+//#include <QGraphicsEmbedScene> // fix - may need to move
 #include <math.h>
 #define PI 3.141592653589793238462643383
 
@@ -70,21 +71,22 @@ void Sphere::generateFaces(int n_rows, float L){
 }
 
 void Sphere::generateFileTextures(void){ // fix - probably need to do this in rendering section - scope
+    /*
     int n_filenames = filenames.length();
     for (int i=0; i<n_filenames; i++){
         scene[i].addText(filenames[i]);
         textureId[i] = scene[i].renderToTexture();
         // fix - if don't need to move this function, add texture id to face object here
     }
-
+    */
     // TO RENDER
-    /**
+    /*
      painter.glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_2D, textureId);
      ... // draw the 3D object
      painter.glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_2D, 0);
-    **/
+    */
 }
 
 QVector3D Sphere::cartesian(float r, float theta, float phi){
