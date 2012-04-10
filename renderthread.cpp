@@ -1,6 +1,11 @@
 #include "renderthread.h"
 #include "renderer.h"
-#include <glu.h>
+#ifdef __APPLE__
+    #include <glu.h>
+#endif
+#ifdef WIN32
+    #include <GL/glu.h>
+#endif
 #include <stdio.h>
 
 #include <QLabel>
