@@ -39,7 +39,9 @@ SOURCES += main.cpp \
     filereader.cpp \
     tagfactory.cpp \
     filetag.cpp \
-    renderer.cpp
+    renderer.cpp \
+    renderthread.cpp \
+    mainwindow.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -61,4 +63,6 @@ HEADERS += \
     filereader.h \
     tagfactory.h \
     filetag.h \
-    renderer.h
+    renderer.h \
+    renderthread.h \
+    mainwindow.h

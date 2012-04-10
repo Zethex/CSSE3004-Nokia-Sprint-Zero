@@ -3,24 +3,28 @@
 
 #include <QtOpenGL>
 #include <QGLWidget>
+#include "renderthread.h"
 
 class Renderer : public QGLWidget
 {
     Q_OBJECT
 
-
-
 public:
-    Renderer(QWidget *parent);
+    explicit Renderer(QWidget *parent = 0);
 
-    void initializeGL();
-    void resizeGL(int w, int h);
-    void paintGL();
+    void initRenderThread(void);
+    void stopRenderThread(void);
     
 signals:
     
 public slots:
-    
+
+protected:
+    void closeEvent(QCloseEvent *);
+    void resizeEvent(QResizeEvent *);
+    void paintEvent(QPaintEvent *);
+
+    RenderThread renderThread;
 };
 
 #endif // RENDERER_H

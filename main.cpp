@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include "tagfactory.h"
+#include "mainwindow.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ TagFactory * TagFactory::factory_singleton;
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
 
-    TagFactory::get_instance("C:\\Users\\Awesumo\\Zethex-CSSE3004-Nokia-Sprint-Zero\\music");
+    /*TagFactory::get_instance("C:\\Users\\Awesumo\\Zethex-CSSE3004-Nokia-Sprint-Zero\\music");
 
     vector<FileTag> temp1 =TagFactory::get_instance("")->get_tag_array();
     for(int i=0; i< temp1.size(); i++){
@@ -30,14 +31,17 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     for(int i=0; i< (*temp3).size(); i++){
         cout<<(*temp3).at(i).get_name()<<endl;
     }
-    cout<<(*temp3).size()<<endl;
+    cout<<(*temp3).size()<<endl;*/
 
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
-    QmlApplicationViewer viewer;
+    MainWindow w;
+    w.show();
+
+    /*QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/CSSE3004NokiaSprintZero/main.qml"));
-    viewer.showExpanded();
+    viewer.showExpanded();*/
 
     return app->exec();
 }
