@@ -41,7 +41,8 @@ SOURCES += main.cpp \
     filetag.cpp \
     renderer.cpp \
     renderthread.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    testunit.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -65,4 +66,5 @@ HEADERS += \
     filetag.h \
     renderer.h \
     renderthread.h \
-    mainwindow.h
+    mainwindow.h \
+    testunit.h
