@@ -1,20 +1,36 @@
 #include "renderer.h"
 
-Renderer::Renderer(QWidget *parent)
+Renderer::Renderer(QWidget *parent) :
+    QGLWidget(parent),
+    renderThread(this)
 {
+    setAutoBufferSwap(false);
 }
 
-void Renderer::initializeGL()
+void Renderer::initRenderThread(void)
 {
-
+    doneCurrent();
+    renderThread.start();
 }
 
-void Renderer::resizeGL(int w, int h)
+void Renderer::stopRenderThread(void)
 {
-
+    renderThread.stop();
+    renderThread.wait();
 }
 
-void Renderer::paintGL()
+void Renderer::resizeEvent(QResizeEvent *evt)
 {
+    renderThread.resizeViewport(evt->size());
+}
 
+void Renderer::paintEvent(QPaintEvent *evt)
+{
+    // Do Nothing. Let The Thread Do The Work
+}
+
+void Renderer::closeEvent(QCloseEvent *evt)
+{
+    stopRenderThread();
+    QGLWidget::closeEvent(evt);
 }

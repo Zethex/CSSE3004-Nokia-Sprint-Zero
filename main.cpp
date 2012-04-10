@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include "tagfactory.h"
+#include "mainwindow.h"
 
 using namespace std;
 
@@ -34,10 +35,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
-    QmlApplicationViewer viewer;
+    MainWindow w;
+    w.show();
+
+    /*QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/CSSE3004NokiaSprintZero/main.qml"));
-    viewer.showExpanded();
+    viewer.showExpanded();*/
 
     return app->exec();
 }
