@@ -57,23 +57,29 @@ int TagFactory::process_tags(map<string, std::vector<string> > * dict){
         //create a tag per key
         tag_count+=1;
         create_tag(it->first);
-        string tag_name = it->first;
         for(int i=0; i<(*dict)[it->first].size(); i++){
+            //iterate through Data in keys
+            FileTag* temp_tag = &this->tag_array.back();
             Data* temp_data = get_data_from_string((*dict)[it->first].at(i));
-            FileTag* temp_tag = get_FileTag_from_string(tag_name);
+
             if(temp_data!=NULL){
-                //if data already exists add tag to data
-                FileTag* t = &this->tag_array.back();
-                cout<<t->get_name()<<endl;
-                temp_data->add_tag(*t);
-                temp_tag->add_file(*temp_data);
-                cout<< temp_data->get_tags().size()<< "the data now has x many tags"<<endl;
+                //if data array already holds filepath adds tag to filepath and adds the filepath to the tag
+                temp_data->add_tag(temp_tag);
+                temp_tag->add_file(temp_data);
+                cout<<temp_tag->get_files().size()<<endl;
+
+
 
             } else {
                 //if data does not exist
                 create_data((*dict)[it->first].at(i), *temp_tag);
-                temp_tag->add_file(this->data_array.back());
+                Data* d = &this->data_array.back();
+                temp_tag->add_file(d);
+
+
             }
+
+
 
         }
             //iterate through each data in key
@@ -103,11 +109,13 @@ FileTag * TagFactory::get_FileTag_from_string(string name){
 
 void TagFactory::create_tag(string name){
     //creates a new tag in the taglist and in memory with an empty data array
-    this->tag_array.push_back(FileTag(name, *new vector<Data>()));
+    vector<Data> temp;
+    this->tag_array.push_back(FileTag(name, temp));
 }
 
 void TagFactory::create_data(string filepath, FileTag f){
-    vector<FileTag> temptag = *new vector<FileTag>();
+    vector<FileTag> temptag;
     temptag.push_back(f);
     this->data_array.push_back(Data(filepath, temptag));
 }
+

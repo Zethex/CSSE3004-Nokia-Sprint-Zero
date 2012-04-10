@@ -23,15 +23,15 @@ public:
     void set_fileTagData(map<string, std::vector<string> > ftd);
     map<string, std::vector<string> > get_fileTagData();
     void print();
+    Data * get_data_from_string(string filepath);
 
     int process_tags(map<string, std::vector<string> > * dict);
 private:
     TagFactory(string filepath);
     static TagFactory * factory_singleton;
-
     vector<FileTag> tag_array;
     vector<Data> data_array;
-    Data * get_data_from_string(string filepath);
+
     FileTag *get_FileTag_from_string(string name);
     void create_tag(string name);
     void create_data(string filepath, FileTag f);

@@ -1,13 +1,15 @@
 #include "FileTag.h"
+#include "tagfactory.h"
 
 FileTag::FileTag(string name, vector<Data> d)
 {
     this->name = name;
     this->files = d;
 }
-void FileTag::add_file(Data d)
+void FileTag::add_file(Data* d)
 {
-    this->files.push_back(d);
+
+    this->files.push_back(*d);
 }
 int FileTag::remove_file(Data d)
 {
@@ -36,15 +38,34 @@ void FileTag::set_files(vector<Data> d)
     this->files = d;
 }
 
-vector<FileTag>* FileTag::get_related_FileTags()
-{
-//iterate through all "Datas" and return all FileTags associated with all "Datas" uniquely
-    vector<FileTag>* returner = new vector<FileTag>() ;
-    for(int i=0; i<this->get_files().size(); i++){
-        vector<FileTag> b =this->get_files().at(i).get_tags();
-        cout<<b.size()<<" many tags was added to returner"<<endl;
-        returner->insert(returner->end(), b.begin(), b.end());
+vector<FileTag> make_unique(vector<FileTag> f, string s){
+    vector<FileTag> temp;
+    int flag=0;
+    for(int i=0; i<f.size(); i++){
+        for( int z=0; z<temp.size(); z++){
+            if(f.at(i).get_name()==temp.at(z).get_name())
+                flag=1;
 
+        }
+        if(flag==0){
+            temp.push_back(f.at(i));
+
+        } else {flag=0;}
     }
-    return returner;
+    return temp;
 }
+
+vector<FileTag> FileTag::get_related_FileTags(){
+
+    vector<FileTag> unique;
+    vector<FileTag> returner;
+    for(int i=0; i<this->get_files().size(); i++){
+        vector<FileTag> b = TagFactory::get_instance("")->get_data_from_string(this->get_files().at(i).get_filepath())->get_tags();
+        returner.insert(returner.begin(), b.begin(), b.end());
+    }
+    unique = make_unique(returner, this->get_name());
+    return unique;
+}
+
+
+

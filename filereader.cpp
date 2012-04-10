@@ -74,7 +74,7 @@ void FileReader::read_file(string filepath)
             }
         }
     } else{
-        cout<<" doesnt have ID3v1(end of file tagging) tag"<<endl;
+        cout<<"doesnt have ID3v1(end of file tagging) tag"<<endl;
     }
 
 
