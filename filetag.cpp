@@ -40,14 +40,11 @@ vector<FileTag>* FileTag::get_related_FileTags()
 {
 //iterate through all "Datas" and return all FileTags associated with all "Datas" uniquely
     vector<FileTag>* returner = new vector<FileTag>() ;
-    cout<<"i have "<<this->files.size()<<" many files"<<endl;
-    for( int i=0; i<this->files.size();i++){
-        Data temp = this->files.at(i);
-        cout<<"file "<<i<<" has "<<temp.get_tags().size()<<" many tags associated"<<endl;
-        for(int z=0; z<temp.get_tags().size(); z++){
-            returner->push_back(temp.get_tags().at(z));
-        }
+    for(int i=0; i<this->get_files().size(); i++){
+        vector<FileTag> b =this->get_files().at(i).get_tags();
+        cout<<b.size()<<" many tags was added to returner"<<endl;
+        returner->insert(returner->end(), b.begin(), b.end());
+
     }
     return returner;
-
 }

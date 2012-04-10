@@ -63,13 +63,15 @@ int TagFactory::process_tags(map<string, std::vector<string> > * dict){
             FileTag* temp_tag = get_FileTag_from_string(tag_name);
             if(temp_data!=NULL){
                 //if data already exists add tag to data
-                FileTag t = this->tag_array.back();
-                temp_data->add_tag(t);
+                FileTag* t = &this->tag_array.back();
+                cout<<t->get_name()<<endl;
+                temp_data->add_tag(*t);
                 temp_tag->add_file(*temp_data);
+                cout<< temp_data->get_tags().size()<< "the data now has x many tags"<<endl;
 
             } else {
                 //if data does not exist
-                create_data((*dict)[it->first].at(i));
+                create_data((*dict)[it->first].at(i), *temp_tag);
                 temp_tag->add_file(this->data_array.back());
             }
 
@@ -104,6 +106,8 @@ void TagFactory::create_tag(string name){
     this->tag_array.push_back(FileTag(name, *new vector<Data>()));
 }
 
-void TagFactory::create_data(string filepath){
-    this->data_array.push_back(Data(filepath, *new vector<FileTag>));
+void TagFactory::create_data(string filepath, FileTag f){
+    vector<FileTag> temptag = *new vector<FileTag>();
+    temptag.push_back(f);
+    this->data_array.push_back(Data(filepath, temptag));
 }

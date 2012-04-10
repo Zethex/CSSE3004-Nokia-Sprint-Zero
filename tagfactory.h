@@ -22,7 +22,6 @@ public:
     void set_tag_array(vector<FileTag> tag_array);
     void set_fileTagData(map<string, std::vector<string> > ftd);
     map<string, std::vector<string> > get_fileTagData();
-
     void print();
 
     int process_tags(map<string, std::vector<string> > * dict);
@@ -35,7 +34,8 @@ private:
     Data * get_data_from_string(string filepath);
     FileTag *get_FileTag_from_string(string name);
     void create_tag(string name);
-    void create_data(string filepath);
+    void create_data(string filepath, FileTag f);
+
 
     map<string, std::vector<string> > fileTagData;
 };
