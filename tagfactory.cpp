@@ -119,3 +119,7 @@ void TagFactory::create_data(string filepath, FileTag f){
     this->data_array.push_back(Data(filepath, temptag));
 }
 
+vector<string> get_related_tags(string s){
+    return get_FileTag_from_string(s).get_related_FileTags();
+}
+

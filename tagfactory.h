@@ -24,6 +24,7 @@ public:
     map<string, std::vector<string> > get_fileTagData();
     void print();
     Data * get_data_from_string(string filepath);
+    vector<string> get_related_tags(string s);
 
     int process_tags(map<string, std::vector<string> > * dict);
 private:
