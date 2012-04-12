@@ -1,6 +1,8 @@
 #include "testunit.h"
 
 void TestUnit::data_test_1(){
+
+    TagFactory::get_instance("../music");
     QCOMPARE("hi", "hi");
 }
 

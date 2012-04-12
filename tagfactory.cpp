@@ -120,6 +120,11 @@ void TagFactory::create_data(string filepath, FileTag f){
 }
 
 vector<string> TagFactory::get_related_tags(string s){
-    return get_FileTag_from_string(s).get_related_FileTags();
+    vector<FileTag> f= this->get_FileTag_from_string(s)->get_related_FileTags();
+    vector<string> a;
+    for(int i=0; i<f.size();i++){
+        a.push_back(f.at(i).get_name());
+    }
+    return a;
 }
 

@@ -2,7 +2,13 @@
 
 Controller::Controller()
 {
+    this->display_splash_screen();
 }
+
+void Controller::display_splash_screen(){
+
+}
+
 void Controller::request_filepath(){
     //ask user through ui to give us their filepath
     //save it to this string
@@ -11,10 +17,5 @@ void Controller::request_filepath(){
 }
 
 vector<string> Controller::get_related_tags(string s){
-    vector<string> s;
-    vector<FileTag> f =TagFactory::get_related_tags(s);
-    for(int i=0; i<f.size(); i++){
-        s.push_back(f.at(i).get_name());
-    }
-    return s;
+    return TagFactory::get_instance("")->get_related_tags(s);
 }
