@@ -3,6 +3,8 @@
 
 #include <QtOpenGL>
 #include <QGLWidget>
+#include <QVector3D>
+#include <QList>
 #include "renderthread.h"
 
 class Renderer : public QGLWidget
@@ -14,6 +16,9 @@ public:
 
     void initRenderThread(void);
     void stopRenderThread(void);
+
+    void drawLine(QVector3D s, QVector3D e);
+    void drawSphere();
     
 signals:
     

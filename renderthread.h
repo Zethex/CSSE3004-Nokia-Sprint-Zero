@@ -4,6 +4,8 @@
 #include <QThread>
 #include <sphere.h>
 #include <QGraphicsScene> // fix - may need to move
+#include <QList>
+#include <QVector3D>
 
 class Renderer;
 class QSize;
@@ -17,6 +19,9 @@ public:
     void resizeViewport(const QSize &size);
     void run(void);
     void stop(void);
+
+    void addToSphereList(Sphere);
+    void addToLineList(QList<QVector3D>);
 
 protected:
     void GLInit(void);
@@ -32,6 +37,9 @@ private:
     int w, h, FrameCounter;
     Sphere centralSphere;
     Renderer *renderer;
+
+    QList<QList<QVector3D> > *lines;
+    QList<Sphere> *spheres;
 
     QGraphicsScene scene[500]; // fix - most likely need to move to renderer
     int textureId[500]; // fix - most likely need to move to renderer

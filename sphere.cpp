@@ -1,10 +1,10 @@
 #include "sphere.h"
-#ifdef __APPLE__
+/*#ifdef __APPLE__
     #include <glu.h>
 #endif
 #ifdef WIN32
     #include <GL/glu.h>
-#endif
+#endif*/
 #include <stdio.h>
 
 //#include <QGraphicsEmbedScene> // fix - may need to move

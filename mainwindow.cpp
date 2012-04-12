@@ -11,6 +11,10 @@ MainWindow::MainWindow(QWidget *parent) :
     renderer = new Renderer();
     setCentralWidget(renderer);
     renderer->initRenderThread();
+
+    QVector3D *a = new QVector3D(0, 0, 0);
+    QVector3D *b = new QVector3D(6, 6, 6);
+    renderer->drawLine(*a, *b);
 }
 
 MainWindow::~MainWindow()

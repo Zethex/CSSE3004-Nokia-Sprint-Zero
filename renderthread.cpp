@@ -24,6 +24,9 @@ RenderThread::RenderThread(Renderer *parent) :
     doResize = false;
     doRefresh = true;
     FrameCounter = 0;
+
+    this->spheres = new QList<Sphere>();
+    this->lines = new QList<QList<QVector3D> >();
 }
 
 void RenderThread::resizeViewport(const QSize &size)
@@ -70,6 +73,14 @@ void RenderThread::run()
 void RenderThread::GLInit()
 {
     glClearColor(0.05f, 0.05f, 0.1f, 0.0f);
+
+    // Set Depth Buffer
+    glClearDepth(1.0f);
+    glDepthFunc(GL_LEQUAL);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CCW);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
 
 void RenderThread::GLResize(int width, int height)
@@ -92,8 +103,26 @@ void RenderThread::paintGL()
     // draw labels
     int R = centralSphere.getRadius();
 
+    // Draw Lines
     glColor3f(1,1,1);
-    renderer->renderText(0,R*2,R, "TAG 1");
+    QList<QList<QVector3D> > *drawnLines = new QList<QList<QVector3D> >();
+    while (!this->lines->isEmpty()) {
+        QList<QVector3D> currLine = this->lines->takeFirst();
+        glBegin(GL_LINES);
+        QList<QVector3D> drawnPoints;
+        while (!currLine.isEmpty()) {
+            QVector3D point = currLine.takeFirst();
+            glVertex3f(point.x(), point.y(), point.z());
+            drawnPoints.append(point);
+        }
+        currLine = drawnPoints;
+        glEnd();
+        drawnLines->append(currLine);
+    }
+
+    this->lines = drawnLines;
+
+    /*renderer->renderText(0,R*2,R, "TAG 1");
 
     glBegin(GL_LINES);
     glVertex3f(0, 0, 0);
@@ -140,7 +169,7 @@ void RenderThread::paintGL()
     glBegin(GL_LINES);
     glVertex3f(0, 0, 0);
     glVertex3f(-R,-R*2,-R);
-    glEnd( );
+    glEnd( );*/
 
     // draw central sphere
     int number_of_faces = centralSphere.getNumberOfFaces();
@@ -204,4 +233,14 @@ void RenderThread::paintGL()
     }
 
 
+}
+
+void RenderThread::addToLineList(QList<QVector3D> points)
+{
+    this->lines->append(points);
+}
+
+void RenderThread::addToSphereList(Sphere sphere)
+{
+    this->spheres->append(sphere);
 }
