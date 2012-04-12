@@ -2,7 +2,13 @@
 
 Controller::Controller()
 {
+    this->display_splash_screen();
 }
+
+void display_splash_screen(){
+
+}
+
 void Controller::request_filepath(){
     //ask user through ui to give us their filepath
     //save it to this string
