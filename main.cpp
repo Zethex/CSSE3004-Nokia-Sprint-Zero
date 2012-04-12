@@ -56,6 +56,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QVector3D *pb = new QVector3D(6, 6, 6);
     renderer->drawLine(*pa, *pb);
 
+    Sphere sphere;
+    sphere.createSphere();
+    renderer->drawSphere(sphere);
+
     MainWindow *w = new MainWindow(NULL, renderer);
     w->resize(320, 480);
     splash->finish(w);

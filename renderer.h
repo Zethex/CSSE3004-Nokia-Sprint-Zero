@@ -18,7 +18,12 @@ public:
     void stopRenderThread(void);
 
     void drawLine(QVector3D s, QVector3D e);
-    void drawSphere();
+    void drawSphere(Sphere sphere);
+
+    void removeSphere(Sphere sphere);
+
+    void clearLines();
+    void clearSpheres();
     
 signals:
     

@@ -29,6 +29,12 @@ void Renderer::paintEvent(QPaintEvent *evt)
     // Do Nothing. Let The Thread Do The Work
 }
 
+void Renderer::closeEvent(QCloseEvent *evt)
+{
+    stopRenderThread();
+    QGLWidget::closeEvent(evt);
+}
+
 void Renderer::drawLine(QVector3D s, QVector3D e)
 {
     QList<QVector3D> points;
@@ -37,8 +43,9 @@ void Renderer::drawLine(QVector3D s, QVector3D e)
     this->renderThread.addToLineList(points);
 }
 
-void Renderer::closeEvent(QCloseEvent *evt)
+void Renderer::drawSphere(Sphere sphere)
 {
-    stopRenderThread();
-    QGLWidget::closeEvent(evt);
+    this->renderThread.addToSphereList(sphere);
 }
+
+

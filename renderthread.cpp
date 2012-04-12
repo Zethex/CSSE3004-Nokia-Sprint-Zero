@@ -58,7 +58,7 @@ void RenderThread::run()
         glLoadIdentity();
 
         if (doRefresh){
-            centralSphere.createSphere(); // send file names through here
+            //centralSphere.createSphere(); // send file names through here
             doRefresh = false;
         }
         paintGL();
@@ -101,16 +101,18 @@ void RenderThread::paintGL()
     glRotatef(FrameCounter*0.5,0,1,0.0f);     // rotate y-axis
 
     // draw labels
-    int R = centralSphere.getRadius();
+    //int R = centralSphere.getRadius();
 
     // Draw Lines
     glColor3f(1,1,1);
     QList<QList<QVector3D> > *drawnLines = new QList<QList<QVector3D> >();
-    while (!this->lines->isEmpty()) {
+    while (!this->lines->isEmpty())
+    {
         QList<QVector3D> currLine = this->lines->takeFirst();
         glBegin(GL_LINES);
         QList<QVector3D> drawnPoints;
-        while (!currLine.isEmpty()) {
+        while (!currLine.isEmpty())
+        {
             QVector3D point = currLine.takeFirst();
             glVertex3f(point.x(), point.y(), point.z());
             drawnPoints.append(point);
@@ -122,115 +124,102 @@ void RenderThread::paintGL()
 
     this->lines = drawnLines;
 
-    /*renderer->renderText(0,R*2,R, "TAG 1");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0, R*2, R);
-    glEnd( );
-
-    renderer->renderText(0,-R*2,R*2, "TAG 2");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0,-R*2,R*2);
-    glEnd( );
-
-    renderer->renderText(-R*2,R*2,0, "TAG 3");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(-R*2,R*2,0);
-    glEnd( );
-
-    renderer->renderText(R*2,-R*2,0, "TAG 4");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(R*2,-R*2,0);
-    glEnd( );
-
-    renderer->renderText(0,R*0.7,-R*2, "TAG 5");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0,R*0.7,-R*2);
-    glEnd( );
-
-    renderer->renderText(0,-R*0.2,R*2, "TAG 6");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0,-R*0.2,R*2);
-    glEnd( );
-
-    renderer->renderText(-R,-R*2,-R, "TAG 7");
-
-    glBegin(GL_LINES);
-    glVertex3f(0, 0, 0);
-    glVertex3f(-R,-R*2,-R);
-    glEnd( );*/
-
     // draw central sphere
-    int number_of_faces = centralSphere.getNumberOfFaces();
+    QList<Sphere> *drawnSpheres = new QList<Sphere>();
+    while (!this->spheres->isEmpty())
+    {
+        Sphere currSphere = this->spheres->takeFirst();
+        int numFaces = currSphere.getNumberOfFaces();
 
-    /* not currently working - for drawing labels
-    const std::string filenames[8] = {"label 1", "label 2", "label3", "label 4", "label 5", "label 6", "label 7", "label 8"}; //fix - remove - only for testing
-    int n_filenames = 8; // fix - this will eventually be passed from controller
-    */
+        for (int i=0; i < numFaces; i++)
+        {
+            QVector3D vert;
+            Face face = currSphere.getface(i);
 
-    for (int i=0; i<=number_of_faces; i++){
-        /* not currently working - for drawing labels
-        if (i<n_filenames){
-            scene[i].addText(filenames[i], );
-            textureId[i] = scene[i].renderToTexture();
+            glBegin(GL_QUADS);
+            glColor3f(0.0, 1.0, 0.3);
+            vert = face.getv(1);
+            glVertex3f(vert.x(), vert.z(), vert.y());
+
+            glColor3f(0.0, 0.8, 0.5);
+            vert = face.getv(2);
+            glVertex3f(vert.x(), vert.z(), vert.y());
+
+            glColor3f(0.0, 0.6, 0.7);
+            vert = face.getv(3);
+            glVertex3f(vert.x(), vert.z(), vert.y());
+
+            glColor3f(0.0, 0.4, 0.9);
+            vert = face.getv(4);
+            glVertex3f(vert.x(), vert.z(), vert.y());
+
+            glEnd();
         }
-        */
 
-        QVector3D* vp = new QVector3D();
-        QVector3D v = *vp;
-        Face face = centralSphere.getface(i);
-        glBegin(GL_QUADS);
-            /* not currently working - for drawing labels
-            if (i<n_filenames){
-                glActiveTexture(GL_TEXTURE0);
-                glBindTexture(GL_TEXTURE_2D, textureId[i]);
-            }
-            */
-
-            glColor3f(0.,0.,1.);
-            v = face.getv(1);
-            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
-            //printf("\n");
-            glVertex3f(v.x(), v.z(), v.y());
-
-            glColor3f(1.,0.,0.);
-            v = face.getv(2);
-            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
-            //printf("\n");
-            glVertex3f(v.x(), v.z(), v.y());
-
-            glColor3f(0.,0.,1.);
-            v = face.getv(3);
-            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
-            //printf("\n");
-            glVertex3f(v.x(), v.z(), v.y());
-
-            glColor3f(1.,0.,0.);
-            v = face.getv(4);
-            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
-           // printf("\n");
-            glVertex3f(v.x(), v.z(), v.y());
-            //printf("\n\n");
-
-            /* not currently working - for drawing labels
-            if (i<n_filenames){
-                glActiveTexture(GL_TEXTURE0);
-                glBindTexture(GL_TEXTURE_2D, 0);
-            }
-            */
-        glEnd();
+        drawnSpheres->append(currSphere);
     }
+
+    this->spheres = drawnSpheres;
+
+//    int number_of_faces = centralSphere.getNumberOfFaces();
+
+//    /* not currently working - for drawing labels
+//    const std::string filenames[8] = {"label 1", "label 2", "label3", "label 4", "label 5", "label 6", "label 7", "label 8"}; //fix - remove - only for testing
+//    int n_filenames = 8; // fix - this will eventually be passed from controller
+//    */
+
+//    for (int i=0; i<=number_of_faces; i++){
+//        /* not currently working - for drawing labels
+//        if (i<n_filenames){
+//            scene[i].addText(filenames[i], );
+//            textureId[i] = scene[i].renderToTexture();
+//        }
+//        */
+
+//        QVector3D* vp = new QVector3D();
+//        QVector3D v = *vp;
+//        Face face = centralSphere.getface(i);
+//        glBegin(GL_QUADS);
+//            /* not currently working - for drawing labels
+//            if (i<n_filenames){
+//                glActiveTexture(GL_TEXTURE0);
+//                glBindTexture(GL_TEXTURE_2D, textureId[i]);
+//            }
+//            */
+
+//            glColor3f(0.,0.,1.);
+//            v = face.getv(1);
+//            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
+//            //printf("\n");
+//            glVertex3f(v.x(), v.z(), v.y());
+
+//            glColor3f(1.,0.,0.);
+//            v = face.getv(2);
+//            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
+//            //printf("\n");
+//            glVertex3f(v.x(), v.z(), v.y());
+
+//            glColor3f(0.,0.,1.);
+//            v = face.getv(3);
+//            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
+//            //printf("\n");
+//            glVertex3f(v.x(), v.z(), v.y());
+
+//            glColor3f(1.,0.,0.);
+//            v = face.getv(4);
+//            //printf("[%f, %f, %f]", v.x(), v.y(), v.z());
+//           // printf("\n");
+//            glVertex3f(v.x(), v.z(), v.y());
+//            //printf("\n\n");
+
+//            /* not currently working - for drawing labels
+//            if (i<n_filenames){
+//                glActiveTexture(GL_TEXTURE0);
+//                glBindTexture(GL_TEXTURE_2D, 0);
+//            }
+//            */
+//        glEnd();
+//    }
 
 
 }
@@ -244,3 +233,71 @@ void RenderThread::addToSphereList(Sphere sphere)
 {
     this->spheres->append(sphere);
 }
+
+void RenderThread::clearLines()
+{
+    this->lines = new QList<QList<QVector3D> >();
+}
+
+void RenderThread::clearSpheres()
+{
+    this->spheres = new QList<Sphere>();
+}
+
+void RenderThread::removeSphere(Sphere sphere)
+{
+    /*int index = this->spheres->indexOf(sphere);
+    if (index != -1)
+    {
+        this->spheres->removeAt(index);
+    }*/
+}
+
+/*renderer->renderText(0,R*2,R, "TAG 1");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(0, R*2, R);
+glEnd( );
+
+renderer->renderText(0,-R*2,R*2, "TAG 2");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(0,-R*2,R*2);
+glEnd( );
+
+renderer->renderText(-R*2,R*2,0, "TAG 3");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(-R*2,R*2,0);
+glEnd( );
+
+renderer->renderText(R*2,-R*2,0, "TAG 4");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(R*2,-R*2,0);
+glEnd( );
+
+renderer->renderText(0,R*0.7,-R*2, "TAG 5");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(0,R*0.7,-R*2);
+glEnd( );
+
+renderer->renderText(0,-R*0.2,R*2, "TAG 6");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(0,-R*0.2,R*2);
+glEnd( );
+
+renderer->renderText(-R,-R*2,-R, "TAG 7");
+
+glBegin(GL_LINES);
+glVertex3f(0, 0, 0);
+glVertex3f(-R,-R*2,-R);
+glEnd( );*/

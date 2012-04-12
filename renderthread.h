@@ -23,6 +23,11 @@ public:
     void addToSphereList(Sphere);
     void addToLineList(QList<QVector3D>);
 
+    void removeSphere(Sphere sphere);
+
+    void clearLines();
+    void clearSpheres();
+
 protected:
     void GLInit(void);
     void GLResize(int width, int height);
@@ -35,7 +40,7 @@ public slots:
 private:
     bool doRendering, doResize, doRefresh;
     int w, h, FrameCounter;
-    Sphere centralSphere;
+    //Sphere centralSphere;
     Renderer *renderer;
 
     QList<QList<QVector3D> > *lines;
