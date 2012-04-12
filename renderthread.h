@@ -2,6 +2,8 @@
 #define RENDERTHREAD_H
 
 #include <QThread>
+#include <sphere.h>
+#include <QGraphicsScene> // fix - may need to move
 
 class Renderer;
 class QSize;
@@ -26,10 +28,13 @@ signals:
 public slots:
 
 private:
-    bool doRendering, doResize;
+    bool doRendering, doResize, doRefresh;
     int w, h, FrameCounter;
-
+    Sphere centralSphere;
     Renderer *renderer;
+
+    QGraphicsScene scene[500]; // fix - most likely need to move to renderer
+    int textureId[500]; // fix - most likely need to move to renderer
 };
 
 #endif // RENDERTHREAD_H

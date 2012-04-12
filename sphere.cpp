@@ -10,19 +10,35 @@ Sphere::Sphere()
 {
 }
 
-Face Sphere::getface(int pos){
-    return faces[pos]; // fix - return new face object?
+Face Sphere::getface(int index){
+    return faces[index]; // fix - return new face object?
 }
 
-void Sphere::createSphere(void){
-    generateFaces(7, 1.0);
+int Sphere::getNumberOfFaces(void){
+    return number_of_faces;
+}
+
+QVector3D Sphere::getPosition(void){
+    return position; // fix - return new  object
+}
+
+int Sphere::getRadius(void){
+    return R;
+}
+
+void Sphere::setPosition(QVector3D new_position){
+    position = new_position; // fix - copy coords
+}
+
+void Sphere::createSphere(void){ // send file names through here
+    generateFaces(5, 1.0);
     //generateFileTextures(); // fix - can play around with rendering a QML scene (in this case containing only a label) as a texture
 }
 
 void Sphere::generateFaces(int n_rows, float L){
     int face = 0;
     float dphi = (PI/2.0) /n_rows;
-    float R = L/(2*sin(dphi/2));
+    R = L/(2*sin(dphi/2));
     float phi = dphi;
     for (int i=-n_rows+1; i <= 4; i++){
         float edge_phi_up = phi + dphi/2;
