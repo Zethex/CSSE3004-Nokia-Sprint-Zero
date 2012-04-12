@@ -8,7 +8,8 @@
 #include "testunit.h"
 #include <QSplashScreen>
 #include "sleep.h"
-
+#include "renderer.h"
+#include <QVector3D>
 
 using namespace std;
 
@@ -47,11 +48,19 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Sleep s;
     s.msleep(1000);
 
-    MainWindow w;
-    w.resize(320, 480);
-    splash->finish(&w);
+    Renderer *renderer = new Renderer(); // <- give this to the controller to access
+    renderer->initRenderThread();
+
+    // This would take place in the controller
+    QVector3D *pa = new QVector3D(0, 0, 0);
+    QVector3D *pb = new QVector3D(6, 6, 6);
+    renderer->drawLine(*pa, *pb);
+
+    MainWindow *w = new MainWindow(NULL, renderer);
+    w->resize(320, 480);
+    splash->finish(w);
     delete splash;
-    w.show();
+    w->show();
 
     return a.exec();
 }
