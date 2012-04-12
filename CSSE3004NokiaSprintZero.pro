@@ -30,6 +30,8 @@ QT += opengl
 CONFIG += qdeclarative-boostable
 CONFIG += qtestlib
 
+#CONFIG += x86_64 x86
+
 # Add dependency to Symbian components
 # CONFIG += qt-components
 
@@ -43,7 +45,10 @@ SOURCES += main.cpp \
     renderthread.cpp \
     mainwindow.cpp \
     testunit.cpp \
-    controller.cpp
+    controller.cpp \
+    sphere.cpp \
+    sleep.cpp \
+    face.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -70,4 +75,10 @@ HEADERS += \
     renderthread.h \
     mainwindow.h \
     testunit.h \
-    controller.h
+    controller.h \
+    xmlmanager.h \
+    sphere.h \
+    sleep.h \
+    face.h
+
+LIBS += -lssl -lcrypto

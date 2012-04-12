@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include "sphere.h"
 
 
 RenderThread::RenderThread(Renderer *parent) :
