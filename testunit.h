@@ -1,6 +1,7 @@
 #ifndef TESTUNIT_H
 #define TESTUNIT_H
 #include <QtTest/QtTest>
+#include "tagfactory.h"
 
 class TestUnit: public QObject{
 
