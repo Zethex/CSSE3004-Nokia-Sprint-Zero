@@ -79,10 +79,17 @@ void Sphere::generateFaces(int n_rows, float L){
             v4 = cartesian(R, theta + dtheta/2, phi_bottom);
             center = cartesian(R, theta, phi);
             faces[face].setposition(center.x(), center.y(), center.z());
-            faces[face].setv(1, (float)v1.x(), (float)v1.y(), (float)v1.z());
-            faces[face].setv(2, (float)v2.x(), (float)v2.y(), (float)v2.z());
-            faces[face].setv(3, (float)v3.x(), (float)v3.y(), (float)v3.z());
-            faces[face].setv(4, (float)v4.x(), (float)v4.y(), (float)v4.z());
+            if (i<=0){
+                faces[face].setv(1, (float)v1.x(), (float)v1.y(), (float)v1.z());
+                faces[face].setv(2, (float)v2.x(), (float)v2.y(), (float)v2.z());
+                faces[face].setv(3, (float)v3.x(), (float)v3.y(), (float)v3.z());
+                faces[face].setv(4, (float)v4.x(), (float)v4.y(), (float)v4.z());
+            } else {
+                faces[face].setv(4, (float)v1.x(), (float)v1.y(), (float)v1.z());
+                faces[face].setv(3, (float)v2.x(), (float)v2.y(), (float)v2.z());
+                faces[face].setv(2, (float)v3.x(), (float)v3.y(), (float)v3.z());
+                faces[face].setv(1, (float)v4.x(), (float)v4.y(), (float)v4.z());
+            }
             theta += dtheta;
             face++;
         }
