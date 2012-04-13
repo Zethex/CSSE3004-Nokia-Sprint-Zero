@@ -19,7 +19,7 @@ public:
     void resizeViewport(const QSize &size);
     void run(void);
     void stop(void);
-
+	void doZoom(int delta);
     void addToSphereList(Sphere);
     void addToLineList(QList<QVector3D>);
 
@@ -39,7 +39,7 @@ public slots:
 
 private:
     bool doRendering, doResize, doRefresh;
-    int w, h, FrameCounter;
+    int w, h, FrameCounter, zoom;
     //Sphere centralSphere;
     Renderer *renderer;
 

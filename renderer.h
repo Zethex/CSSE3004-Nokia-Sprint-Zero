@@ -33,7 +33,8 @@ protected:
     void closeEvent(QCloseEvent *);
     void resizeEvent(QResizeEvent *);
     void paintEvent(QPaintEvent *);
-
+	void wheelEvent(QWheelEvent *);
+	
     RenderThread renderThread;
 };
 

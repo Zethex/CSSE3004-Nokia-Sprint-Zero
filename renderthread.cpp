@@ -23,6 +23,7 @@ RenderThread::RenderThread(Renderer *parent) :
     doRendering = true;
     doResize = false;
     doRefresh = true;
+	zoom = -25;
     FrameCounter = 0;
 
     this->spheres = new QList<Sphere>();
@@ -97,7 +98,7 @@ void RenderThread::GLResize(int width, int height)
 
 void RenderThread::paintGL()
 {
-    glTranslatef(0.0f, 0.0f, -25.0f);            // move 5 units into the screen
+    glTranslatef(0.0f, 0.0f, zoom);            // move 5 units into the screen
     glRotatef(FrameCounter*0.5,0,1,0.0f);     // rotate y-axis
 
     // draw labels
@@ -242,6 +243,10 @@ void RenderThread::clearLines()
 void RenderThread::clearSpheres()
 {
     this->spheres = new QList<Sphere>();
+}
+
+void RenderThread::doZoom(int delta){
+    zoom += delta;
 }
 
 void RenderThread::removeSphere(Sphere sphere)

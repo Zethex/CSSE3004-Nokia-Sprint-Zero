@@ -48,4 +48,8 @@ void Renderer::drawSphere(Sphere sphere)
     this->renderThread.addToSphereList(sphere);
 }
 
-
+void Renderer::wheelEvent(QWheelEvent *evt)
+{
+    int delta = evt->delta();
+    renderThread.doZoom(0.01*delta);
+}
