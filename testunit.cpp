@@ -1,9 +1,100 @@
 #include "testunit.h"
+#define NUMDATA 1 // for tests that use get_instance(filepath)
+#define NUMTAGS 2
 
 void TestUnit::data_test_1(){
 
-    TagFactory::get_instance("../music");
+    // get_instance( *NEED FULL PATH* )
+    TagFactory::get_instance("\\music");
     QCOMPARE("hi", "hi");
+}
+
+// check Data
+void TestUnit::checkData() {
+    cout<<endl;
+    vector<FileTag> tags;
+    Data temp = Data("data_testname", tags);
+
+    // test filepath getter
+    QVERIFY(temp.get_filepath() == "data_testname");
+
+    // test filepath setter
+    temp.set_file("data_newname");
+    QVERIFY(temp.get_filepath() == "data_newname");
+
+    // test no tags
+    QVERIFY(temp.get_tags().size() == 0);
+
+    // test adding tag *TO DO*
+
+}
+
+//check FileTag
+void TestUnit::checkFileTag() {
+    cout<<endl;
+    vector<Data> temp_data;
+    FileTag temp = FileTag("tag_test", temp_data);
+
+    // test name getter
+    QVERIFY(temp.get_name() == "tag_test");
+
+    // test name setter
+    temp.set_name("tag_newname");
+    QVERIFY(temp.get_name() == "tag_newname");
+
+    // test files getter *TO DO*
+
+    // test files setter *TO DO*
+
+}
+
+// TagFactory - check number of tags made
+void TestUnit::checkNumberTagsMade() {
+    cout<<endl;
+    vector<FileTag> temp = TagFactory::get_instance("")->get_tag_array();
+    cout<<"Tag instances created: "<<temp.size()<<endl;
+    QVERIFY(temp.size() == NUMTAGS);
+}
+
+// TagFactory - check how many datas each tag has
+void TestUnit::checkEachTag() {
+    cout<<endl;
+    vector<FileTag> temp = TagFactory::get_instance("")->get_tag_array();
+    for(int i=0; i < temp.size(); i++) {
+        cout<<temp.at(i).get_name()<<" has "<<temp.at(i).get_files().size()<<" associated Data"<<endl;
+        QVERIFY(temp.at(i).get_files().size() == 1);
+    }
+}
+
+// TagFactory - check how many datas were made
+void TestUnit::checkNumberDatasMade() {
+    cout<<endl;
+    vector<Data> temp = TagFactory::get_instance("")->get_data_array();
+    cout<<"Data instances created: "<<temp.size()<<endl;
+    QVERIFY(temp.size() == NUMDATA);
+}
+
+// TagFactory - check how many tags each data has
+void TestUnit::checkEachData() {
+    cout<<endl;
+    vector<Data> temp = TagFactory::get_instance("")->get_data_array();
+    for(int i=0; i < temp.size(); i++) {
+        cout<<temp.at(i).get_filepath()<<" has "<<temp.at(i).get_tags().size()<<" associated tags"<<endl;
+        QVERIFY(temp.at(i).get_tags().size() == 2);
+    }
+}
+
+// TagFactory - check related tags
+void TestUnit::checkCorrectTags() {
+    cout<<endl;
+    vector<FileTag> temp = TagFactory::get_instance("")->get_tag_array();
+    for(int i=0; i < temp.size(); i++) {
+        vector<FileTag> tempR = temp.at(i).get_related_FileTags();
+        cout<<temp.at(i).get_name()<<" has related tags: "<<endl;
+        for(int j=0; j < tempR.size(); j++) {
+            cout<<tempR.at(j).get_name()<<endl;
+        }
+    }
 }
 
 void TestUnit::runTests(){
