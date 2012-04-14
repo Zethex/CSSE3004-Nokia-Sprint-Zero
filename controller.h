@@ -30,6 +30,7 @@ signals:
 private:
     vector<string> spheres_in_view; // holds the 5 instances of names of spheres around current sphere
     string current_sphere;//sphere currently selected
+    string filename, current_tag_name;
 
 
 };

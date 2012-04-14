@@ -38,16 +38,27 @@ void Renderer::closeEvent(QCloseEvent *evt)
 
 void Renderer::keyPressEvent(QKeyEvent *evt)
 {
-    printf("EVENT");
     int key = evt->key();
     if (key == Qt::Key_1){
+        emit labelClicked(0);
+    } else if (key == Qt::Key_2){
         emit labelClicked(1);
-        printf("KEY 1");
+    } else if (key == Qt::Key_3){
+        emit labelClicked(2);
+    } else if (key == Qt::Key_4){
+        emit labelClicked(3);
+    } else if (key == Qt::Key_5){
+        emit labelClicked(4);
+    } else if (key == Qt::Key_6){
+        emit labelClicked(5);
+    } else if (key == Qt::Key_7){
+        emit labelClicked(6);
     }
 }
 
 void Renderer::addNewRelatedTags(vector<string> tags){
     renderThread.addNewRelatedTags(tags);
+    renderThread.clearLines();
     drawLines(tags.size());
 }
 

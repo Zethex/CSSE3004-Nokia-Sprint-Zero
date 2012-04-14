@@ -16,6 +16,7 @@
 #include "sphere.h"
 #include <qgraphicsembedscene.h>
 #include <qglpainter.h>
+#include <sstream>
 
 RenderThread::RenderThread(Renderer *parent) :
     QThread(),
@@ -97,6 +98,12 @@ void RenderThread::GLResize(int width, int height)
     glLoadIdentity();
 }
 
+std::string itoa(long n){
+    std::stringstream stream;
+    stream <<n;
+    return stream.str();
+}
+
 void RenderThread::paintGL()
 {
     glLoadIdentity(); // Prevent the view from continually moving in the zoom direction, start at 0,0,0 then zoom each frame
@@ -109,34 +116,38 @@ void RenderThread::paintGL()
     //int R = centralSphere.getRadius();
 
     // Draw Lines
-    glColor3f(1,1,1);
-    QList<QList<QVector3D> > *drawnLines = new QList<QList<QVector3D> >();
-    int counter = 0;
-    while (!this->lines->isEmpty())
-    {
-        int x,y,z;
-        QList<QVector3D> currLine = this->lines->takeFirst();
-        glBegin(GL_LINES);
-        QList<QVector3D> drawnPoints;
-        while (!currLine.isEmpty())
+    if (related_tag_names.size()!=0){
+        glColor3f(1,1,1);
+        QList<QList<QVector3D> > *drawnLines = new QList<QList<QVector3D> >();
+        int counter = 0;
+        while (!this->lines->isEmpty())
         {
-            QVector3D point = currLine.takeFirst();
-            x = point.x();
-            y = point.y();
-            z = point.z();
-            glVertex3f(x, y, z);
-            drawnPoints.append(point);
+            int x,y,z;
+            QList<QVector3D> currLine = this->lines->takeFirst();
+            glBegin(GL_LINES);
+            QList<QVector3D> drawnPoints;
+            while (!currLine.isEmpty())
+            {
+                QVector3D point = currLine.takeFirst();
+                x = point.x();
+                y = point.y();
+                z = point.z();
+                glVertex3f(x, y, z);
+                drawnPoints.append(point);
+            }
+            currLine = drawnPoints;
+            glEnd();
+            drawnLines->append(currLine);
+
+            string related_tag_name = related_tag_names.at(counter);
+            related_tag_name.insert(0, ": ");
+            related_tag_name.insert(0, itoa(counter+1));
+            renderer->renderText(x, y, z, QString::fromStdString(related_tag_name));
+            counter++;
         }
-        currLine = drawnPoints;
-        glEnd();
-        drawnLines->append(currLine);
 
-        string related_tag_name = related_tag_names.at(counter);
-        renderer->renderText(x, y, z, QString::fromStdString(related_tag_name));
-        counter++;
+        this->lines = drawnLines;
     }
-
-    this->lines = drawnLines;
 
 
     //glEnable( GL_TEXTURE_2D );

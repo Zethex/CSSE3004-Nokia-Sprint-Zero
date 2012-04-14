@@ -4,7 +4,7 @@
 Controller::Controller(QObject *parent)
 {
     this->display_splash_screen();
-
+    filename = "C:\\Users\\Ania\\Documents\\csse3004\\grouprepository\\music"; // **** REPLACE YOUR PATH HERE! ****
 }
 
 void Controller::display_splash_screen(void){
@@ -12,11 +12,11 @@ void Controller::display_splash_screen(void){
 }
 
 void Controller::setFirstTag(void){
-    TagFactory *tf = TagFactory::get_instance("C:\\Users\\Ania\\Documents\\csse3004\\grouprepository\\music"); // **** REPLACE YOUR PATH HERE! ****
+    TagFactory *tf = TagFactory::get_instance(filename);
     vector<FileTag> tags = tf->get_tag_array();
     FileTag firstTag = tags.front();
-    string name = firstTag.get_name();
-    vector<string> related_tag_names = get_related_tags(name);
+    current_tag_name = firstTag.get_name();
+    vector<string> related_tag_names = this->get_related_tags(current_tag_name);
     cout << related_tag_names.front() << endl;
     printf("sending signal");
     emit setNewCentreTag(related_tag_names);
@@ -31,19 +31,20 @@ void Controller::request_filepath(void){
 
 vector<string> Controller::get_related_tags(string s){
     vector<string> related_tags = TagFactory::get_instance("")->get_related_tags(s);
-    //if (related_tags.size()==0){
-        related_tags.push_back("Happy");
-        related_tags.push_back("Artist 1");
-        related_tags.push_back("Energetic");
-        related_tags.push_back("Genre 2");
-    //}
     return related_tags;
 }
 
 
 void Controller::onLabelClick(int label_index){
     printf("IN THE CONTROLLER, CLICKED A LABEL!");
-
-    //emit setNewCentreTag(vector<string> related_tag_names);
+    vector<string> tag_names = TagFactory::get_instance(filename)->get_related_tags(current_tag_name);
+    //printf("size %i", tag_names.size());
+    if (label_index >= tag_names.size()){return;}
+    string clicked_tag_name = tag_names.at(label_index);
+    cout << clicked_tag_name << endl;
+    vector<string> related_tag_names = this->get_related_tags(clicked_tag_name);
+    current_tag_name = clicked_tag_name;
+    cout << related_tag_names.front() << endl;
+    emit setNewCentreTag(related_tag_names);
 }
 
