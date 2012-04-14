@@ -5,6 +5,7 @@ Renderer::Renderer(QWidget *parent) :
     renderThread(this)
 {
     setAutoBufferSwap(false);
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 void Renderer::initRenderThread(void)
@@ -35,12 +36,32 @@ void Renderer::closeEvent(QCloseEvent *evt)
     QGLWidget::closeEvent(evt);
 }
 
+void Renderer::keyPressEvent(QKeyEvent *evt)
+{
+    printf("EVENT");
+    int key = evt->key();
+    if (key == Qt::Key_1){
+        printf("KEY 1");
+    }
+}
+
 void Renderer::drawLine(QVector3D s, QVector3D e)
 {
     QList<QVector3D> points;
     points.append(s);
     points.append(e);
     this->renderThread.addToLineList(points);
+}
+
+void Renderer::drawLines(int n_lines)
+{
+    QVector3D* origin = new QVector3D(0,0,0);
+    for (int i=0; i<n_lines; i++){
+        QList<QVector3D> points;
+        points.append(*origin);
+        points.append(this->renderThread.getLineCoordsVector(i));
+        this->renderThread.addToLineList(points);
+    }
 }
 
 void Renderer::drawSphere(Sphere sphere)
@@ -53,3 +74,4 @@ void Renderer::wheelEvent(QWheelEvent *evt)
     int delta = evt->delta();
     renderThread.doZoom(0.01*delta);
 }
+

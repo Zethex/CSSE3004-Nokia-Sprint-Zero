@@ -14,7 +14,8 @@
 #include <string>
 #include <iostream>
 #include "sphere.h"
-
+#include <qgraphicsembedscene.h>
+#include <qglpainter.h>
 
 RenderThread::RenderThread(Renderer *parent) :
     QThread(),
@@ -102,35 +103,58 @@ void RenderThread::paintGL()
     glTranslatef(0.0f, 0.0f, zoom);            // move 5 units into the screen
     glRotatef(FrameCounter*0.5,0,1,0.0f);     // rotate y-axis
 
+
+
     // draw labels
     //int R = centralSphere.getRadius();
 
     // Draw Lines
     glColor3f(1,1,1);
     QList<QList<QVector3D> > *drawnLines = new QList<QList<QVector3D> >();
+    int counter = 0;
     while (!this->lines->isEmpty())
     {
+        int x,y,z;
         QList<QVector3D> currLine = this->lines->takeFirst();
         glBegin(GL_LINES);
         QList<QVector3D> drawnPoints;
         while (!currLine.isEmpty())
         {
             QVector3D point = currLine.takeFirst();
-            glVertex3f(point.x(), point.y(), point.z());
+            x = point.x();
+            y = point.y();
+            z = point.z();
+            glVertex3f(x, y, z);
             drawnPoints.append(point);
         }
         currLine = drawnPoints;
         glEnd();
         drawnLines->append(currLine);
+
+        renderer->renderText(x, y, z, "TAG 6");
+        counter++;
     }
 
     this->lines = drawnLines;
+
+
+    //glEnable( GL_TEXTURE_2D );
+    //QFont *font = new QFont();
+    //QString *string = new QString("TEST");
+    //test_scene = new QGraphicsEmbedScene(this);
+    //test_scene->addText(*string, *font);
+    //GLuint texture_id = test_scene->renderToTexture(5);
+    //QGLPainter* painter = new QGLPainter();
+    //painter->glActiveTexture(GL_TEXTURE0);
+    //glGenTextures(1, &texture_id);
+    //glBindTexture(GL_TEXTURE_2D,texture_id);
 
     // draw central sphere
     QList<Sphere> *drawnSpheres = new QList<Sphere>();
     while (!this->spheres->isEmpty())
     {
         Sphere currSphere = this->spheres->takeFirst();
+        R = currSphere.getRadius();
         int numFaces = currSphere.getNumberOfFaces();
 
         for (int i=0; i < numFaces; i++)
@@ -225,6 +249,18 @@ void RenderThread::paintGL()
 
 
 }
+
+QVector3D RenderThread::getLineCoordsVector(int index){
+    float line_coords[7][3] = {{0,2,1},{0,-2,2},{-2,2,0},{2,-2,0},{0,.7,-2},{0,-0.2,2}, {-1,-2,-1}};
+    float x = line_coords[index][0]*3; // fix - get radius
+    float y = line_coords[index][1]*3;
+    float z = line_coords[index][2]*3;
+    //printf("%f, %f, %f", x,y,z);
+    QVector3D* v = new QVector3D(x,y,z);
+    return *v;
+}
+
+
 
 void RenderThread::addToLineList(QList<QVector3D> points)
 {

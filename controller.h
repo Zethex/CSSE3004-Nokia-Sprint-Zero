@@ -2,11 +2,13 @@
 #define CONTROLLER_H
 
 #include "tagfactory.h"
+#include <QObject>
 
-class Controller
+class Controller : public QObject
 {
+    Q_OBJECT
 public:
-    Controller(); //upon controller being initiated it needs to:
+    explicit Controller(QObject *parent = 0); //upon controller being initiated it needs to:
                     //1.     display splash screen
                     //prompt user for music folder
                     //start by just choosing some tag
@@ -20,6 +22,10 @@ public:
     void display_splash_screen();
     void request_filepath();//populates the Tagfactory with input string
     vector<string> get_related_tags(string s); // passes call to tagfactory
+public slots:
+    void onLabelClick(int label_index);
+//signals:
+   // void setNewCentreTag(vector<string> related_tag_names);
 private:
     vector<string> spheres_in_view; // holds the 5 instances of names of spheres around current sphere
     string current_sphere;//sphere currently selected

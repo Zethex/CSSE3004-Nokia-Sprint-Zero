@@ -19,6 +19,7 @@ public:
 
     void drawLine(QVector3D s, QVector3D e);
     void drawSphere(Sphere sphere);
+    void drawLines(int n_lines);
 
     void removeSphere(Sphere sphere);
 
@@ -34,6 +35,7 @@ protected:
     void resizeEvent(QResizeEvent *);
     void paintEvent(QPaintEvent *);
 	void wheelEvent(QWheelEvent *);
+    void keyPressEvent(QKeyEvent *evt);
 	
     RenderThread renderThread;
 };

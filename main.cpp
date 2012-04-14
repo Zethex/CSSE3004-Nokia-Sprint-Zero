@@ -55,6 +55,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     w->resize(320, 480);
     splash->finish(w);
     delete splash;
+    w->setFocus();
     w->show();
 
     return a.exec();

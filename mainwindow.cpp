@@ -10,16 +10,13 @@ MainWindow::MainWindow(QWidget *parent, Renderer *rend) :
     //ui->setupUi(this);
     this->renderer = rend;
     setCentralWidget(renderer);
-
     renderer->initRenderThread();
-    // This would take place in the controller
-    QVector3D *pa = new QVector3D(0, 0, 0);
-    QVector3D *pb = new QVector3D(6, 6, 6);
-    renderer->drawLine(*pa, *pb);
 
     Sphere sphere;
     sphere.createSphere();
     renderer->drawSphere(sphere);
+
+    renderer->drawLines(6);
 }
 
 MainWindow::~MainWindow()

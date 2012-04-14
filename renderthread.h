@@ -6,9 +6,13 @@
 #include <QGraphicsScene> // fix - may need to move
 #include <QList>
 #include <QVector3D>
+#include <qgraphicsembedscene.h>
+#include <string>
 
 class Renderer;
 class QSize;
+
+using namespace std;
 
 class RenderThread : public QThread
 {
@@ -22,7 +26,7 @@ public:
 	void doZoom(int delta);
     void addToSphereList(Sphere);
     void addToLineList(QList<QVector3D>);
-
+    QVector3D getLineCoordsVector(int index);
     void removeSphere(Sphere sphere);
 
     void clearLines();
@@ -39,8 +43,7 @@ public slots:
 
 private:
     bool doRendering, doResize, doRefresh;
-    int w, h, FrameCounter, zoom;
-    //Sphere centralSphere;
+    int w, h, FrameCounter, zoom, R;
     Renderer *renderer;
 
     QList<QList<QVector3D> > *lines;
@@ -48,6 +51,9 @@ private:
 
     QGraphicsScene scene[500]; // fix - most likely need to move to renderer
     int textureId[500]; // fix - most likely need to move to renderer
+    QGraphicsEmbedScene *test_scene;
+
+    std::vector<string> related_tag_names;
 };
 
 #endif // RENDERTHREAD_H
