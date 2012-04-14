@@ -131,7 +131,8 @@ void RenderThread::paintGL()
         glEnd();
         drawnLines->append(currLine);
 
-        renderer->renderText(x, y, z, "TAG 6");
+        string related_tag_name = related_tag_names.at(counter);
+        renderer->renderText(x, y, z, QString::fromStdString(related_tag_name));
         counter++;
     }
 
@@ -260,7 +261,9 @@ QVector3D RenderThread::getLineCoordsVector(int index){
     return *v;
 }
 
-
+void RenderThread::addNewRelatedTags(vector<string> tags){
+    this->related_tag_names = tags;
+}
 
 void RenderThread::addToLineList(QList<QVector3D> points)
 {

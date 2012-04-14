@@ -1,5 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>pictures/splash-screen.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>pictures/splash-screen.png</file>
+    </qresource>
 </RCC>

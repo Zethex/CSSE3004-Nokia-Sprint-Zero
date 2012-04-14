@@ -22,10 +22,11 @@ public:
     void display_splash_screen();
     void request_filepath();//populates the Tagfactory with input string
     vector<string> get_related_tags(string s); // passes call to tagfactory
+    void setFirstTag(void);
 public slots:
     void onLabelClick(int label_index);
-//signals:
-   // void setNewCentreTag(vector<string> related_tag_names);
+signals:
+    void setNewCentreTag(vector<string> related_tag_names);
 private:
     vector<string> spheres_in_view; // holds the 5 instances of names of spheres around current sphere
     string current_sphere;//sphere currently selected

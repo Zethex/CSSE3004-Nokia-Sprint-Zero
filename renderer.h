@@ -25,10 +25,13 @@ public:
 
     void clearLines();
     void clearSpheres();
-    
-signals:
-    
+
 public slots:
+    void addNewRelatedTags(vector<string> tags);
+
+signals:
+    void labelClicked(int label_index);
+
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -36,6 +39,7 @@ protected:
     void paintEvent(QPaintEvent *);
 	void wheelEvent(QWheelEvent *);
     void keyPressEvent(QKeyEvent *evt);
+
 	
     RenderThread renderThread;
 };

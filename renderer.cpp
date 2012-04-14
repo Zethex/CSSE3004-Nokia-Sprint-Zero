@@ -41,8 +41,14 @@ void Renderer::keyPressEvent(QKeyEvent *evt)
     printf("EVENT");
     int key = evt->key();
     if (key == Qt::Key_1){
+        emit labelClicked(1);
         printf("KEY 1");
     }
+}
+
+void Renderer::addNewRelatedTags(vector<string> tags){
+    renderThread.addNewRelatedTags(tags);
+    drawLines(tags.size());
 }
 
 void Renderer::drawLine(QVector3D s, QVector3D e)

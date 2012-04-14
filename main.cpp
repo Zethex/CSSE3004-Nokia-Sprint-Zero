@@ -10,6 +10,7 @@
 #include "sleep.h"
 #include "renderer.h"
 #include <QVector3D>
+#include <controller.h>
 
 using namespace std;
 
@@ -52,6 +53,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 
     MainWindow *w = new MainWindow(NULL, renderer);
+    Controller *controller = new Controller();
+
+    // connect renderer and controller;
+    QObject::connect(renderer, SIGNAL(labelClicked(int)), controller, SLOT(onLabelClick(int)));
+    QObject::connect(controller, SIGNAL(setNewCentreTag(vector<string>)), renderer, SLOT(addNewRelatedTags(vector<string>)));
+
+    controller->setFirstTag();
+
     w->resize(320, 480);
     splash->finish(w);
     delete splash;

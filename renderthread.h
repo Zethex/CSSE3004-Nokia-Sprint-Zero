@@ -28,7 +28,7 @@ public:
     void addToLineList(QList<QVector3D>);
     QVector3D getLineCoordsVector(int index);
     void removeSphere(Sphere sphere);
-
+    void addNewRelatedTags(vector<string>);
     void clearLines();
     void clearSpheres();
 

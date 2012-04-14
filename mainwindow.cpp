@@ -15,8 +15,6 @@ MainWindow::MainWindow(QWidget *parent, Renderer *rend) :
     Sphere sphere;
     sphere.createSphere();
     renderer->drawSphere(sphere);
-
-    renderer->drawLines(6);
 }
 
 MainWindow::~MainWindow()
