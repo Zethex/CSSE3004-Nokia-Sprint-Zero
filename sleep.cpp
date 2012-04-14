@@ -4,12 +4,12 @@
 #include <QMutex>
 
 
-Sleep::Sleep(){
+Sleeper::Sleeper(){
 
 }
 
 // Causes the current thread to sleep for msecs milliseconds.
-void Sleep::msleep(unsigned long msecs)
+void Sleeper::msleep(unsigned long msecs)
 {
     QMutex mutex;
     mutex.lock();

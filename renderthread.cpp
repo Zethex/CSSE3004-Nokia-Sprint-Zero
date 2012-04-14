@@ -98,6 +98,7 @@ void RenderThread::GLResize(int width, int height)
 
 void RenderThread::paintGL()
 {
+
     glTranslatef(0.0f, 0.0f, zoom);            // move 5 units into the screen
     glRotatef(FrameCounter*0.5,0,1,0.0f);     // rotate y-axis
 

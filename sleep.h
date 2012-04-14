@@ -1,10 +1,10 @@
 #ifndef SLEEP_H
 #define SLEEP_H
 
-class Sleep
+class Sleeper
 {
 public:
-    Sleep();
+    Sleeper();
     static void msleep(unsigned long msecs);
 };
 
