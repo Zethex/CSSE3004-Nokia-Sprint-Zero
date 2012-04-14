@@ -41,7 +41,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QSplashScreen *splash = new QSplashScreen;
     splash->setPixmap(QPixmap(":/pictures/splash-screen.png")); // fix - need this to work with relative paths
     splash->show();
-
     Qt::Alignment topRight = Qt::AlignRight | Qt::AlignTop;
     splash->showMessage(QObject::tr("Loading Application..."),
                                topRight, Qt::white);
@@ -51,18 +50,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     Renderer *renderer = new Renderer(); // <- give this to the controller to access
 
-
     MainWindow *w = new MainWindow(NULL, renderer);
     Controller *controller = new Controller();
 
     // connect renderer and controller;
     QObject::connect(renderer, SIGNAL(labelClicked(int)), controller, SLOT(onLabelClick(int)));
-    QObject::connect(controller, SIGNAL(setNewCentreTag(vector<string>)), renderer, SLOT(addNewRelatedTags(vector<string>)));
+    QObject::connect(controller, SIGNAL(setNewCentreTag(string, vector<string>)), renderer, SLOT(addNewRelatedTags(string, vector<string>)));
 
     controller->setFirstTag();
 
     w->resize(320, 480);
     splash->finish(w);
+    splash->close();
     delete splash;
     w->setFocus();
     w->show();

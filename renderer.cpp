@@ -56,9 +56,10 @@ void Renderer::keyPressEvent(QKeyEvent *evt)
     }
 }
 
-void Renderer::addNewRelatedTags(vector<string> tags){
+void Renderer::addNewRelatedTags(string current_tag_name, vector<string> tags){
     renderThread.addNewRelatedTags(tags);
     renderThread.clearLines();
+    renderThread.setCurrentTagName(current_tag_name);
     drawLines(tags.size());
 }
 

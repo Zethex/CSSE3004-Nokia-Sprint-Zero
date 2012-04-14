@@ -6,7 +6,7 @@
 #include <QGraphicsScene> // fix - may need to move
 #include <QList>
 #include <QVector3D>
-#include <qgraphicsembedscene.h>
+//#include <qgraphicsembedscene.h>
 #include <string>
 
 class Renderer;
@@ -31,6 +31,7 @@ public:
     void addNewRelatedTags(vector<string>);
     void clearLines();
     void clearSpheres();
+    void setCurrentTagName(string current_tag_name);
 
 protected:
     void GLInit(void);
@@ -49,11 +50,13 @@ private:
     QList<QList<QVector3D> > *lines;
     QList<Sphere> *spheres;
 
-    QGraphicsScene scene[500]; // fix - most likely need to move to renderer
+    //QGraphicsScene scene[500]; // fix - most likely need to move to renderer
     int textureId[500]; // fix - most likely need to move to renderer
-    QGraphicsEmbedScene *test_scene;
+    //QGraphicsEmbedScene *test_scene;
 
     std::vector<string> related_tag_names;
+
+    std::string current_tag_name;
 };
 
 #endif // RENDERTHREAD_H

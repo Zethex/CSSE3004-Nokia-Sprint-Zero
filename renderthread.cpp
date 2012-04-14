@@ -14,8 +14,8 @@
 #include <string>
 #include <iostream>
 #include "sphere.h"
-#include <qgraphicsembedscene.h>
-#include <qglpainter.h>
+//#include <qgraphicsembedscene.h>
+//#include <qglpainter.h>
 #include <sstream>
 
 RenderThread::RenderThread(Renderer *parent) :
@@ -27,6 +27,7 @@ RenderThread::RenderThread(Renderer *parent) :
     doRefresh = true;
 	zoom = -25;
     FrameCounter = 0;
+    R = 3;
 
     this->spheres = new QList<Sphere>();
     this->lines = new QList<QList<QVector3D> >();
@@ -104,6 +105,10 @@ std::string itoa(long n){
     return stream.str();
 }
 
+void RenderThread::setCurrentTagName(string name){
+    this->current_tag_name = name;
+}
+
 void RenderThread::paintGL()
 {
     glLoadIdentity(); // Prevent the view from continually moving in the zoom direction, start at 0,0,0 then zoom each frame
@@ -117,6 +122,10 @@ void RenderThread::paintGL()
 
     // Draw Lines
     if (related_tag_names.size()!=0){
+        glColor3f(0.2,0.4,1);
+        QString tag_name = QString::fromStdString(current_tag_name);
+        renderer->renderText(0.0, R*1.2, 0.0, tag_name);
+
         glColor3f(1,1,1);
         QList<QList<QVector3D> > *drawnLines = new QList<QList<QVector3D> >();
         int counter = 0;
@@ -264,9 +273,9 @@ void RenderThread::paintGL()
 
 QVector3D RenderThread::getLineCoordsVector(int index){
     float line_coords[7][3] = {{0,2,1},{0,-2,2},{-2,2,0},{2,-2,0},{0,.7,-2},{0,-0.2,2}, {-1,-2,-1}};
-    float x = line_coords[index][0]*3; // fix - get radius
-    float y = line_coords[index][1]*3;
-    float z = line_coords[index][2]*3;
+    float x = line_coords[index][0]*R; // fix - get radius
+    float y = line_coords[index][1]*R;
+    float z = line_coords[index][2]*R;
     //printf("%f, %f, %f", x,y,z);
     QVector3D* v = new QVector3D(x,y,z);
     return *v;

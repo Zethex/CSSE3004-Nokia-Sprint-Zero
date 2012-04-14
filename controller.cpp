@@ -4,7 +4,7 @@
 Controller::Controller(QObject *parent)
 {
     this->display_splash_screen();
-    filename = "C:\\Users\\Ania\\Documents\\csse3004\\grouprepository\\music"; // **** REPLACE YOUR PATH HERE! ****
+    filename = "./music"; // **** REPLACE YOUR PATH HERE! ****
 }
 
 void Controller::display_splash_screen(void){
@@ -19,7 +19,7 @@ void Controller::setFirstTag(void){
     vector<string> related_tag_names = this->get_related_tags(current_tag_name);
     cout << related_tag_names.front() << endl;
     printf("sending signal");
-    emit setNewCentreTag(related_tag_names);
+    emit setNewCentreTag(current_tag_name, related_tag_names);
 }
 
 void Controller::request_filepath(void){
@@ -38,13 +38,14 @@ vector<string> Controller::get_related_tags(string s){
 void Controller::onLabelClick(int label_index){
     printf("IN THE CONTROLLER, CLICKED A LABEL!");
     vector<string> tag_names = TagFactory::get_instance(filename)->get_related_tags(current_tag_name);
-    //printf("size %i", tag_names.size());
+    printf("size %i", tag_names.size());
+    printf("label index %i", label_index);
     if (label_index >= tag_names.size()){return;}
     string clicked_tag_name = tag_names.at(label_index);
     cout << clicked_tag_name << endl;
     vector<string> related_tag_names = this->get_related_tags(clicked_tag_name);
     current_tag_name = clicked_tag_name;
     cout << related_tag_names.front() << endl;
-    emit setNewCentreTag(related_tag_names);
+    emit setNewCentreTag(clicked_tag_name, related_tag_names);
 }
 

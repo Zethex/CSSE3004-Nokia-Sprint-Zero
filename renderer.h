@@ -27,7 +27,7 @@ public:
     void clearSpheres();
 
 public slots:
-    void addNewRelatedTags(vector<string> tags);
+    void addNewRelatedTags(string current_name, vector<string> tags);
 
 signals:
     void labelClicked(int label_index);

@@ -26,7 +26,7 @@ public:
 public slots:
     void onLabelClick(int label_index);
 signals:
-    void setNewCentreTag(vector<string> related_tag_names);
+    void setNewCentreTag(string current_name, vector<string> related_tag_names);
 private:
     vector<string> spheres_in_view; // holds the 5 instances of names of spheres around current sphere
     string current_sphere;//sphere currently selected
