@@ -99,7 +99,7 @@ void RenderThread::GLResize(int width, int height)
 
 void RenderThread::paintGL()
 {
-
+    glLoadIdentity(); // Prevent the view from continually moving in the zoom direction, start at 0,0,0 then zoom each frame
     glTranslatef(0.0f, 0.0f, zoom);            // move 5 units into the screen
     glRotatef(FrameCounter*0.5,0,1,0.0f);     // rotate y-axis
 
